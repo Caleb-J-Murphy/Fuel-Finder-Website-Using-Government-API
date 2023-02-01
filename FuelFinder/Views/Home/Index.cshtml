@@ -1,0 +1,116 @@
+﻿@model FuelFinder.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row w-100" style="padding-top:1.125%">
+    <div class="col-lg-3 home-box">
+        <div class="card back-light h-50 shadow-lg" style="border-radius:20px">
+            <div class="card-header shadow" style="height:15%; border-radius:20px;">
+                <h3 class="card-heading">Featured</h3>
+            </div>
+            <div class="card-body" style="height:75%">
+                <p class="sml-heading" style="text-align:center">Cheapest Fuel of the Month</p>
+                <p>UNLEADED: 890</p>
+            </div>
+            <div style="height:10%">
+                <button class="button-group cus-btn-drk">
+                    View
+                </button>
+            </div>
+        </div>
+        <div class="card-body back-light h-50 shadow-lg" style="border-radius:20px; margin-top:10%">
+            <div class="card-header shadow" style="height:15%; border-radius:20px;">
+                <h3 class="card-heading">Featured</h3>
+            </div>
+            <div class="container" style="height:75%">
+                <p class="sml-heading" style="text-align:center">Fuel Trends: 12 Month Overview</p>
+            </div>
+            <div style="height:10%">
+                <button class="button-group cus-btn-drk">
+                    View
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 home-box">
+        <div class="card-body back-light h-50 shadow-lg" style="border-radius:20px">
+            <div style="height:15%">
+                <h3 class="big-heading">Thinking Of Signing Up?</h3>
+            </div>
+            <div class="container" style="height:72%">
+                <p>Recieve monthly emails from our staff at FuelFinder containing a brief overview of the fuel prices for the past month</p>
+            </div>
+            <div style="height:10%;">
+                <button class="button-group cus-btn-drk">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body back-light h-50 shadow-lg" style="border-radius:20px; margin-top:5%">
+            <div class="card-header shadow" style="height:15%; border-radius:20px;">
+                <h3 class="card-heading">Overview</h3>
+            </div>
+            <div class="container" style="height:75%">
+                <p class="sml-heading" style="text-align:center">Average Fuel Prices for the Past Month</p>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Diesel</th>
+                            <th>Unleaded</th>
+                            <th>e10</th>
+                        </tr>
+                        <tr>
+                            <td>1200</td>
+                            <td>990</td>
+                            <td>1120</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 home-box">
+        <div class="card-body back-light shadow-lg h-100" style="border-radius:20px">
+            @if (Model.Outlets != null)
+            {
+                <div id="mapid">
+
+                </div>
+                <p>@Model.Outlets.Count() Outlets are being shown.</p>
+            }
+            else
+            {
+                <p class="alert-danger">No data found!</p>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        var json = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.lstOutlets, Newtonsoft.Json.Formatting.Indented));
+
+        var mymap = L.map('mapid').setView([json[0].Latitude, json[0].Longitude], 7);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiY3JhbGViMDMiLCJhIjoiY2thdzRvNmdwMHNzNzJxcXJlaGI2cHhpMSJ9.YeNp5nbgNEugARD9KARtKA'
+        }).addTo(mymap);
+
+
+        for (var i = 0; i < json.length; i++) {
+            var marker = L.marker([json[i].Latitude, json[i].Longitude]).addTo(mymap);
+        }
+    </script>
+}

@@ -1,0 +1,70 @@
+﻿@model FuelFinder.ViewModels.OutletViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1 style="text-align:center; font-weight:900">@Html.DisplayFor(Model => Model.oOutlet.OutletName)</h1>
+
+<div class="row col-11">
+    <div class="col-5" style="margin-top:10%">
+        <div class="row h-25 w-75" style="padding-left:12.5%">
+            @Html.ActionLink("Company: " + Model.oOutlet.Company.CompanyName, "Details", "Company", new { id = Model.oOutlet.CompanyID }, new { @class = "btn cus-btn-drk p-2" })
+        </div>
+        <div class="row h-25 w-75" style="padding-left:12.5%">
+            @Html.ActionLink("Suburb: Acacia Ridge", "Details", "Company", new { id = Model.oOutlet.CompanyID }, new { @class = "btn cus-btn-drk p-2" })
+        </div>
+        <div class="row h-25 w-75" style="padding-left:12.5%">
+            @Html.ActionLink("State: QLD", "Details", "Company", new { id = Model.oOutlet.CompanyID }, new { @class = "btn cus-btn-drk p-2" })
+        </div>
+        <div class="row h-25 w-75" style="padding-left:12.5%">
+            @Html.ActionLink("Edit", "Edit", "Outlet", new { id = Model.oOutlet.CompanyID }, new { @class = "btn cus-btn-drk p-2" })
+        </div>
+    </div>
+    <div class="col-7 card home-box back-light">
+        <canvas id="outletPrice" width="400" height="200"></canvas>
+    </div>
+</div>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.OutletID }) |
+        @Html.ActionLink("Back to List", "Index")*@
+</p>
+
+@section scripts
+{
+    <script>
+
+        //Line Graph of prices for the outlet
+        var ctx = document.getElementById('outletPrice').getContext('2d');
+        var outletPrice = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Encode(Model.RecordsP.Select(r => r.TransactionDateTime.ToString("dd/MM/yyyy")))),
+                datasets: [{
+                    label: @Html.Raw(Json.Encode(Model.oOutlet.OutletName)),
+                    data:  @Html.Raw(Json.Encode(Model.RecordsP.Select(r => r.Price))),
+                    backgroundColor: [
+                        'rgba(50, 87, 98, .5)',
+                    ],
+                    borderColor: [
+                        'rgba(50, 87, 98, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}
+
+

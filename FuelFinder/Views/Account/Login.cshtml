@@ -1,0 +1,55 @@
+﻿@using FuelFinder.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="container" style="padding-top:15%; padding-bottom: 15%">
+    <h1 style="text-align:center; font-weight:900; text-decoration: underline">LOGIN</h1>
+    <section id="loginForm">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="container" style="width:50%; padding-left:12.5%">
+                <h2>Email</h2>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control loginTextBox", @style = "width:100%"})
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="container" style="width:50%; padding-left:12.5%; padding-top: 1.125%">
+                <h2>Password</h2>
+                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @style = "width:100%"})
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="container" style="width:20%; float:none">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)
+                </div>
+            </div>
+            <div class="container" style="width:30%">
+                <div class="float-left" style="width:45%">
+                    <input type="submit" value="Submit" class="btn cus-btn-drk" style="width:90%; margin-left:10%" />
+                </div>
+                <div class="float-right" style="width:45%">
+                    @Html.ActionLink("Register", "Register", null, new { @class = "btn cus-btn-drk", @style = "width:90%" })
+                </div>
+            </div>
+
+            
+
+            @* Enable this once you have account confirmation enabled for password reset functionality
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>*@
+        }
+    </section>
+</div>
+<p class="float-right">
+    @Html.ActionLink("Continue As Guest", "Index", "Home", null, new { @class = "btn cus-btn-drk", @style = "width:100%" })
+</p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

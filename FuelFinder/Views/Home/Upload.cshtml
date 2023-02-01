@@ -1,0 +1,17 @@
+﻿@model FuelFinder.ViewModels.UploadViewModel
+@{
+    ViewBag.Title = "Upload";
+}
+
+    <div class="container p-4">
+        <h1 style="text-align:center; font-weight:900">Upload</h1>
+
+        @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "text-center p-4 align-content-center" }))
+        {
+            @Html.TextBoxFor(m => m.UploadFile, new { type = "file", @class = "btn cus-btn-drk" })
+            //<button id="submitButton" type="submit">Submit</button>
+            <input type="submit" id="submitButton" value="Submit" class="btn cus-btn-drk" />
+            @Html.ValidationMessageFor(m => m.UploadFile)
+        }
+    </div>
+

@@ -1,0 +1,54 @@
+﻿@model FuelFinder.ViewModels.FeatureViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row w-100" style="padding-top:2%; padding-bottom:5%">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <h1 style="text-align:center; font-weight:900">BROWSE</h1>
+        <hr />
+        <div class="card home-box back-light">
+            <table id="featured" class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th class=" text-center align-middle">Outlet Name</th>
+                        <th class=" text-center align-middle">Price</th>
+                        <th class=" text-center align-middle">Fuel Type</th>
+                        <th class=" text-center align-middle">Company</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model.Records)
+                    {
+                        <tr style="color:#325762">
+                            <td class=" text-center align-middle">
+                                @Html.ActionLink(record.Outlet.OutletName, "Details", "Outlet", new { id = record.Outlet.OutletID }, new { @class = "btn cus-btn-drk" })
+                            </td>
+                            <td class=" text-center align-middle">
+                                @record.Price
+                            </td>
+                            <td class=" text-center align-middle">
+                                @record.Fuel.FuelType
+                            </td>
+                            <td class=" text-center align-middle">
+                                @record.Outlet.Company.CompanyName
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#featured").DataTable();
+        })
+    </script>
+}
+
+
+

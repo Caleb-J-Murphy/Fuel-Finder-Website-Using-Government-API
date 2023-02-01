@@ -1,0 +1,126 @@
+﻿body {
+    /* remove padding */
+}
+
+#mapid {
+    height: 500px;
+}
+
+.container {
+    font-family: 'News Gothic MT Std';
+}
+
+.fullcontainer {
+    font-family: 'News Gothic MT Std';
+    width: 100%;
+}
+
+.card-heading {
+    color: #325762;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+}
+.loginTextBox {
+    width:100%;
+}
+
+.big-heading {
+    color: #325762;
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.sml-heading {
+    color: #325762;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.home-box {
+    padding: 1.125%;
+    border-radius: 20px;
+}
+
+.cus-btn-drk {
+    background: #325762;
+    color: #e0e6e8;
+    border-radius: 20px;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+    .cus-btn-drk:hover {
+        background: #1D3238;
+        color: #e0e6e8;
+    }
+
+    .cus-btn-drk span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .cus-btn-drk span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+    .cus-btn-drk:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+
+.back-dark {
+    background-color: #325762;
+    color: #e0e6e8;
+}
+
+.back-light {
+    background-color: #e0e6e8;
+    color: #325762;
+}
+
+.cus-nav {
+    font-size: 16px;
+}
+
+/*Fuel Finder title*/
+.brand-title {
+    font-weight: 700;
+    font-size: 28px;
+}
+
+    .brand-title:hover {
+        color: #325762;
+    }
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

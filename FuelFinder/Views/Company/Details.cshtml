@@ -1,0 +1,46 @@
+﻿@model FuelFinder.ViewModels.CompanyViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1 style="text-align:center; font-weight:900">@Html.DisplayFor(Model => Model.oCompany.CompanyName)</h1>
+
+<div class="row card home-box back-light" >
+    <canvas id="myChart" width="400" height="150"></canvas>
+</div>
+
+
+@section scripts
+{
+    <script>
+        // Bar chart
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Encode(Model.Records.Select(r => r.TransactionDateTime.ToString("dd/MM/yyyy")))),
+                datasets: [{
+                    label: @Html.Raw(Json.Encode(Model.oCompany.CompanyName)),
+                    data:  @Html.Raw(Json.Encode(Model.Records.Select(r => r.Price))),
+                    backgroundColor: [
+                        'rgba(50, 87, 98, .5)',
+                    ],
+                    borderColor: [
+                        'rgba(50, 87, 98, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}

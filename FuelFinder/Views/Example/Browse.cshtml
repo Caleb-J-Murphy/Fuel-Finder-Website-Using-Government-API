@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FuelFinder.Models.Record>
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<h2>Browse</h2>
+
+@using (Html.BeginForm("Browse", "Example", FormMethod.Get, new { @class = "form-inline p-2" }))
+{
+    @Html.TextBox("search", null, new { @class = "form-control mr-2" })
+    @Html.DropDownList("dropdown", new SelectList(Model, "RecordID", "Price"), "Select title...", new { @class = "form-control mr-2" })
+    <button class="btn btn-primary" type="submit">Submit</button>
+}
+
+<table class="table-bordered">
+    <thead>
+        <tr>
+            <th width="25%">RecordID</th>
+            <th width="25%">OutletName</th>
+            <th width="25%">Price</th>
+            <th width="25%">Fuel Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+        <tr>
+            <td>@record.RecordID</td>
+            <td>@record.Outlet.OutletName</td>
+            <td>@record.Price</td>
+            <td>@record.Fuel.FuelType</td>
+        </tr>
+        }
+    </tbody>
+</table>
